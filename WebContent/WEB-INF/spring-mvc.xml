@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+	<!-- 扫描包 -->
+	<context:component-scan base-package="com.group.controller"/>
+	<!-- 消息转换器服务类 -->
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<bean class="com.group.converter.StringToDateConverter"></bean>
+			</list>
+		</property>
+	</bean>
+	<!-- requestMappingHandler,handlerAdapter请求匹配处理器，适配器两个对象 -->
+	<mvc:annotation-driven conversion-service="conversionService"/>
+	<!-- 让对静态资源的请求能够绕过dispatcherServlet的拦截 -->
+	<mvc:default-servlet-handler/>
+	<!-- 视图名称的解析 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+	 p:viewClass="org.springframework.web.servlet.view.JstlView"
+     p:prefix="/" p:suffix=".jsp" />
+</beans>
