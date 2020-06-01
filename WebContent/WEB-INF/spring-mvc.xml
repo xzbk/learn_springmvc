@@ -29,4 +29,19 @@
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 	 p:viewClass="org.springframework.web.servlet.view.JstlView"
      p:prefix="/" p:suffix=".jsp" />
+	<!-- 配置静态资源路径映射 -->
+	<mvc:resources location="/WEB-INF/css/" mapping="/style/**"></mvc:resources>
+	<!-- 文件上传解析器 -->
+	<bean id="multipartResolver"
+        class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+	</bean>
+	<!-- 配置一个拦截器 -->
+	<mvc:interceptors>
+	   <mvc:interceptor>
+	   		<mvc:mapping path="/**"/>
+	     	<bean class="com.group.interceptor.HelloInterceptor"></bean>
+	   </mvc:interceptor>
+	 </mvc:interceptors>
+	<!-- 配置异常处理解析器 -->
+	<bean id="exceptionResolver" class="com.group.exception.HelloExceptionHandlerResolver"></bean>
 </beans>

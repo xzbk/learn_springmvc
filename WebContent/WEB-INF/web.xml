@@ -6,7 +6,21 @@ http://www.springmodules.org/schema/cache/springmodules-ehcache.xsd" xmlns="http
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
-  <!-- 配置中央控制器 -->
+  <!-- 配置tomcat的默认servlet直接拦截静态资源(不在先通过dispatch不成功时再使用tomcat默认的servlet，而是直接拦截不走dispatch) -->
+  <servlet-mapping>
+  	<servlet-name>default</servlet-name>
+	<url-pattern>*.html</url-pattern>  
+  </servlet-mapping>
+  <!-- 配置一个编码过滤器 -->
+	<filter>
+		<filter-name>encoding</filter-name>
+	  	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	  	<filter-name>encoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+  <!-- 配置springmvc的中央控制器 -->
   <servlet>
   	<servlet-name>dispatch</servlet-name>
   	<!-- 让该servlet在tomcat启动的时候就加载,先加载,因为数值是1 -->
@@ -16,6 +30,10 @@ http://www.springmodules.org/schema/cache/springmodules-ehcache.xsd" xmlns="http
   		<param-name>contextConfigLocation</param-name>
   		<param-value>WEB-INF/spring-mvc.xml</param-value>
   	</init-param>
+  	<!-- 配置上传文件最大大小 -->
+  	<multipart-config>
+  	  <max-file-size>512000000</max-file-size>
+  	</multipart-config>
   </servlet>
   <servlet-mapping>
   	<servlet-name>dispatch</servlet-name>
