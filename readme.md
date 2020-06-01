@@ -101,13 +101,13 @@ public String model2(HttpServletRequest request,HttpSession se){
 `return "redirect:/success.jsp";`
 
 ### 静态资源处理
-Springmvc默认是不可以访问静态资源。静态资源包括html，js,css,image.因为springmvc的控制器dispatcherServlet拦截了所有资源，就会将login.html当成一个普通字符串处理，去找处理器，找不到就要报404.但是如果直接访问的是login.jsp，因为jsp是动态的，所以是可以访问的。若要访问静态资源:
+Springmvc默认是不可以访问静态资源。静态资源包括html，js,css,image.因为springmvc的控制器dispatcherServlet拦截了所有资源，就会将login.html当成一个普通字符串处理，去找处理器，找不到就要报404.但是如果直接访问的是login.jsp，因为jsp是动态的，所以是可以访问的。若要访问静态资源:  
 **方法一：**通过mvc提供的一个标签，加入到springmvc.xml配置文件。  
 ```
 <!-- 为了访问静态资源 -->
 <mvc:default-servlet-handler/>
 ```
-这个配置实际上是将请求的url对应的静态资源交给了tomcat带的那个defaultServlet处理了
+这个配置实际上是将请求的url对应的静态资源交给了tomcat带的那个defaultServlet处理了  
 **方法二：**但是如果静态网页的名称恰好等于某个controller里面的requetmapping，这个时候静态网页不会显示出来，法一则不起作用。  
 在法一的基础上，再Web.xml中加入如下代码：
 ```
@@ -123,7 +123,7 @@ Springmvc默认是不可以访问静态资源。静态资源包括html，js,css,
   	<servlet-name>default</servlet-name>
 	<url-pattern>*.css</url-pattern>  
 </servlet-mapping>
-```
+```  
 **法三：**通过mvc：resouces标签完成restful的url和对应的具体location的映射(测试文件为：resource.jsp)。  
 首先也要配置<mvc:default-servlet-handler/>  
 然后加上：
