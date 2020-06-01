@@ -132,7 +132,7 @@ Springmvc默认是不可以访问静态资源。静态资源包括html，js,css,
 <mvc:resources location="/css/" mapping="/styles/**"></mvc:resources>
 <mvc:resources location="/js/" mapping="/script/**"></mvc:resources>
 ```
-如果静态资源放到web-inf受保护的目录下，就只能使用法三映射。这种情况下页面引入：
+如果静态资源放到web-inf受保护的目录下，就只能使用法三映射。这种情况下页面引入：  
 `<link rel="stylesheet" type="text/css" href="styles/bootstrap.css">`
 
 # 文件上传，拦截器和异常处理
